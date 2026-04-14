@@ -1,24 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addItem } from './CartSlice.jsx'; 
 
-const AboutUs = () => {
-  return (
-    <div className="about-us-container">
-      <h2 className="about-us-title">Acerca de Nosotros</h2>
-      <p className="about-us-description">
-        En Paradise Nursery, nuestra misión es acercar la naturaleza a tu hogar. 
-        Nos apasiona ofrecer una selección cuidadosamente curada de plantas 
-        que no solo embellecen tus espacios, sino que también mejoran tu calidad de vida.
-      </p>
-      <div className="about-us-content">
-        <p>
-          Desde helechos vibrantes hasta suculentas resistentes, cada planta en 
-          nuestro inventario es tratada con el máximo cuidado hasta que llega a tus manos. 
-          Creemos que cada hogar merece un toque de verde.
-        </p>
-      </div>
-    </div>
-  );
-};
+function ProductList() {
+    const dispatch = useDispatch();
 
-export default AboutUs;
+    const plantsArray = [
+        {
+            category: "Plantas de Aire",
+            plants: [
+                { name: "Helecho", image: "https://cdn.pixabay.com/photo/2018/06/10/16/40/fern-3466804_1280.jpg", cost: "$15" },
+                { name: "Lengua de Suegra", image: "https://cdn.pixabay.com/photo/2016/11/21/16/05/cactus-1846147_1280.jpg", cost: "$12" }
+            ]
+        }
+    ];
+
+    return (
+        <div className="product-grid">
+            {plantsArray.map((category, index) => (
+                <div key={index}>
+                    <h1>{category.category}</h1>
+                    <div className="product-list">
+                        {category.plants.map((plant, i) => (
+                            <div key={i} className="product-card">
+                                <img src={plant.image} alt={plant.name} style={{width: '200px'}} />
+                                <h3>{plant.name}</h3>
+                                <p>{plant.cost}</p>
+                                <button onClick={() => dispatch(addItem(plant))}>
+                                    Añadir al carrito
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+export default ProductList;
+              
     
