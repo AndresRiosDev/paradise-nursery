@@ -1,23 +1,86 @@
-.about-us-container {
-    padding: 20px;
-    text-align: center;
-    background-color: #f0f8f0;
-    border-radius: 15px;
-    margin: 20px;
+/* Estilos Generales */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.about-us-title {
-    color: #2e7d32;
-    font-size: 2.5rem;
+/* Landing Page (Pregunta 3) */
+.landing-page {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                    url('https://images.unsplash.com/photo-1466692476868-aef1dfb1e835?auto=format&fit=crop&q=80');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
 }
 
-.about-us-description {
-    font-style: italic;
-    color: #555;
+.landing-page h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
 }
 
-.about-us-content {
-    margin-top: 15px;
-    line-height: 1.6;
-    color: #333;
+.landing-page p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Botón Principal */
+.get-started-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 35px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.get-started-btn:hover {
+  transform: scale(1.1);
+  background-color: #45a049;
+}
+
+/* Contenedor de Productos */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 40px;
+  background-color: #f9f9f9;
+}
+
+.product-card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.product-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Carrito */
+.cart-container {
+  padding: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
 }
