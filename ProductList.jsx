@@ -1,44 +1,76 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addItem } from './CartSlice';
-import './ProductList.css'; 
-
-const plants = [
-  { name: 'Helecho Espada', cost: 15, description: 'Planta elegante para interiores con sombra.', image: 'https://images.unsplash.com/photo-1545239351-ef35f43d514b?q=80&w=200' },
-  { name: 'Suculenta Echeveria', cost: 10, description: 'Pequeña, resistente y requiere poca agua.', image: 'https://images.unsplash.com/photo-1509423306611-372077e6822c?q=80&w=200' },
-  { name: 'Planta de Serpiente', cost: 25, description: 'Purifica el aire y es casi indestructible.', image: 'https://images.unsplash.com/photo-1596547609652-9cf5d8d76921?q=80&w=200' },
-  { name: 'Lirio de la Paz', cost: 20, description: 'Hermosas flores blancas y hojas brillantes.', image: 'https://images.unsplash.com/photo-1593691509543-c55fb32e7355?q=80&w=200' },
-  { name: 'Monstera Deliciosa', cost: 30, description: 'Famosa por sus hojas grandes con agujeros.', image: 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?q=80&w=200' },
-  { name: 'Ficus Lyrata', cost: 35, description: 'Planta de tendencia para salas iluminadas.', image: 'https://images.unsplash.com/photo-1597055181300-e3633a207519?q=80&w=200' }
-];
+import { addItem } from '../CartSlice'; 
 
 function ProductList() {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const [addedProducts, setAddedProducts] = useState({});
 
-  const handleAddToCart = (plant) => {
-    dispatch(addItem(plant));
-  };
+    const plantsArray = [
+        {
+            category: "Plantas de Aire",
+            plants: [
+                { name: "Helecho", image: "https://cdn.pixabay.com/photo/2018/11/15/10/32/plants-3816941_1280.jpg", description: "Limpia el aire.", cost: 15 },
+                { name: "Lengua de Suegra", image: "https://cdn.pixabay.com/photo/2021/01/22/06/04/snake-plant-5939187_1280.jpg", description: "Muy resistente.", cost: 20 }
+            ]
+        },
+        {
+            category: "Plantas de Interior",
+            plants: [
+                { name: "Poto", image: "https://cdn.pixabay.com/photo/2018/11/15/10/32/plants-3816941_1280.jpg", description: "Fácil de cuidar.", cost: 12 },
+                { name: "Ficus", image: "https://cdn.pixabay.com/photo/2017/01/01/19/04/ficus-1945279_1280.jpg", description: "Elegante y grande.", cost: 25 }
+            ]
+        },
+        {
+            category: "Plantas Aromáticas",
+            plants: [
+                { name: "Lavanda", image: "https://cdn.pixabay.com/photo/2017/07/24/19/57/lavender-2535914_1280.jpg", description: "Huele delicioso.", cost: 10 },
+                { name: "Menta", image: "https://cdn.pixabay.com/photo/2016/01/07/11/31/mint-1125740_1280.jpg", description: "Para tus tés.", cost: 8 }
+            ]
+        }
+    ];
 
-  return (
-    <div className="product-container">
-      <h2 className="product-title">Nuestras Plantas Disponibles</h2>
-      <div className="product-grid">
-        {plants.map((plant, index) => (
-          <div key={index} className="product-card">
-            <img src={plant.image} alt={plant.name} className="product-image" />
-            <h3 className="product-name">{plant.name}</h3>
-            <p className="product-description">{plant.description}</p>
-            <p className="product-price">${plant.cost}</p>
-            <button className="add-to-cart-btn" onClick={() => handleAddToCart(plant)}>
-              Añadir al carrito
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+    const handleAddToCart = (product) => {
+        dispatch(addItem(product));
+        setAddedProducts((prevState) => ({
+            ...prevState,
+            [product.name]: true,
+        }));
+    };
+
+    return (
+        <div className="product-grid">
+            {plantsArray.map((category, index) => (
+                <div key={index}>
+                    <h2 style={{ textAlign: 'center', margin: '20px 0' }}>{category.category}</h2>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+                        {category.plants.map((plant, idx) => (
+                            <div key={idx} style={{ border: '1px solid #ccc', margin: '10px', padding: '10px', borderRadius: '10px', width: '250px' }}>
+                                <img src={plant.image} alt={plant.name} style={{ width: '100%', borderRadius: '5px' }} />
+                                <h3>{plant.name}</h3>
+                                <p>{plant.description}</p>
+                                <p><strong>${plant.cost}</strong></p>
+                                <button
+                                    style={{
+                                        backgroundColor: addedProducts[plant.name] ? 'gray' : '#4CAF50',
+                                        color: 'white',
+                                        border: 'none',
+                                        padding: '10px',
+                                        cursor: 'pointer',
+                                        width: '100%'
+                                    }}
+                                    disabled={addedProducts[plant.name]}
+                                    onClick={() => handleAddToCart(plant)}
+                                >
+                                    {addedProducts[plant.name] ? "Agregado" : "Añadir al carrito"}
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
 }
 
 export default ProductList;
-
-```
