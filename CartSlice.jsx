@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const CartSlice = createSlice({
   name: 'cart',
   initialState: {
-    items: [], 
+    items: [], // Aquí se guardarán las plantas que elijas
   },
   reducers: {
     addItem: (state, action) => {
@@ -29,4 +29,5 @@ export const CartSlice = createSlice({
 });
 
 export const { addItem, removeItem, updateQuantity } = CartSlice.actions;
+
 export default CartSlice.reducer;
