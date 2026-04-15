@@ -12,26 +12,30 @@ function App() {
 
   return (
     <div className="app-container">
-      <div className={`landing-page ${showProductList ? 'fade-out' : ''}`}>
-        <div className="background-image"></div>
-        <div className="content">
-          <div className="landing_content">
-            <h1>Bienvenido a Paradise Nursery</h1>
-            <div className="divider"></div>
-            <p>Donde lo verde cobra vida</p>
-            {/* Clase corregida aquí abajo */}
-            <button className="get-started-btn" onClick={handleGetStartedClick}>
-              Empezar
-            </button>
-          </div>
-          <div className="aboutus_container">
-            <AboutUs />
+      {/* Si showProductList es falso, mostramos la Landing Page */}
+      {!showProductList ? (
+        <div className="landing-page">
+          <div className="background-image"></div>
+          <div className="content">
+            <div className="landing_content">
+              <h1>Bienvenido a Paradise Nursery</h1>
+              <div className="divider"></div>
+              <p>Donde lo verde cobra vida</p>
+              <button className="get-started-btn" onClick={handleGetStartedClick}>
+                Empezar
+              </button>
+            </div>
+            <div className="aboutus_container">
+              <AboutUs />
+            </div>
           </div>
         </div>
-      </div>
-      <div className={`product-list-container ${showProductList ? 'visible' : ''}`}>
-        <ProductList />
-      </div>
+      ) : (
+        /* Si showProductList es verdadero, mostramos la lista de productos */
+        <div className="product-list-container visible">
+          <ProductList />
+        </div>
+      )}
     </div>
   );
 }
